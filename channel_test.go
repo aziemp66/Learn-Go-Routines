@@ -47,10 +47,30 @@ func OnlyOut(c <-chan string) {
 
 func TestInOutChannel(t *testing.T) {
 	channel := make(chan string)
+	defer close(channel)
 
 	go OnlyIn(channel)
 	go OnlyOut(channel)
 
-	close(channel)
 	time.Sleep(1 * time.Second)
+}
+
+func TestBufferedChannel(t *testing.T) {
+	channel := make(chan string, 3)
+	defer close(channel)
+
+	go func() {
+		channel <- "Azie"
+		channel <- "Melza"
+		channel <- "Pratama"
+	}()
+
+	go func() {
+		fmt.Println(<-channel)
+		fmt.Println(<-channel)
+		fmt.Println(<-channel)
+	}()
+
+	time.Sleep(1 * time.Second)
+	fmt.Println("Selesai")
 }
