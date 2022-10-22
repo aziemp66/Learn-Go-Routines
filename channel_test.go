@@ -17,3 +17,17 @@ func TestCreateChannel(t *testing.T) {
 	data := <-channel
 	fmt.Println(data)
 }
+
+func GiveMeResponse(channel chan string) {
+	channel <- "Azie Melza Pratama"
+}
+
+func TestChannelAsParameter(t *testing.T) {
+	channel := make(chan string)
+	defer close(channel)
+
+	go GiveMeResponse(channel)
+
+	data := <-channel
+	fmt.Println(data)
+}
