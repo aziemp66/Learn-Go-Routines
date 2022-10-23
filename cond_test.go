@@ -26,18 +26,18 @@ func TestCond(t *testing.T) {
 	}
 
 	// Dibolehkan satu2
-	// go func() {
-	// 	for i := 0; i < 10; i++ {
-	// 		time.Sleep(1 * time.Second)
-	// 		cond.Signal()
-	// 	}
-	// }()
+	go func() {
+		for i := 0; i < 10; i++ {
+			time.Sleep(1 * time.Second)
+			cond.Signal()
+		}
+	}()
 
 	// Dibolehkan Semuanya
-	go func() {
-		time.Sleep(1 * time.Second)
-		cond.Broadcast()
-	}()
+	// go func() {
+	// 	time.Sleep(1 * time.Second)
+	// 	cond.Broadcast()
+	// }()
 
 	group.Wait()
 }
