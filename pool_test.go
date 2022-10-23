@@ -25,7 +25,6 @@ func TestPool(t *testing.T) {
 			group.Add(1)
 
 			data := pool.Get()
-			// time.Sleep(1 * time.Second)
 			fmt.Println(data)
 			pool.Put(data)
 		}()
